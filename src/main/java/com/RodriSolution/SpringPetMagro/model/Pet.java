@@ -12,12 +12,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter
-
 @Entity
 public class Pet {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @Enumerated(EnumType.STRING)
     private Tipo tipo;
     private String firstName;
