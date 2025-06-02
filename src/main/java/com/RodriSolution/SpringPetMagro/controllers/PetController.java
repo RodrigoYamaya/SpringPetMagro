@@ -2,30 +2,81 @@ package com.RodriSolution.SpringPetMagro.controllers;
 
 import com.RodriSolution.SpringPetMagro.dtos.PetRecordDto;
 import com.RodriSolution.SpringPetMagro.model.Pet;
-import com.RodriSolution.SpringPetMagro.repositories.PetRepository;
+import com.RodriSolution.SpringPetMagro.services.PetService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
 
 @RestController
 public class PetController {
 
     @Autowired
-    PetRepository petRepository;
+    PetService petService;
 
     @PostMapping("/pets")
     @Transactional
-    public ResponseEntity<Pet> savePet(@RequestBody  @Valid PetRecordDto petRecordDto) {
+    public ResponseEntity<Pet> savePet(@RequestBody @Valid PetRecordDto petRecordDto) {
         var pet = new Pet();
         BeanUtils.copyProperties(petRecordDto, pet);
-        return ResponseEntity.status(HttpStatus.CREATED).body(petRepository.save(pet));
+        petService.salvarPet(pet);
+        return ResponseEntity.status(HttpStatus.CREATED).body(pet);
 
     }
 
+    @GetMapping("/pets/lista")
+    public ResponseEntity<List<Pet>> getAllPets() {
+        List<Pet> pets = petService.listarPets();
+        return ResponseEntity.status(HttpStatus.OK).body(pets);
+    }
+
+
+
+    @PutMapping("/pets/{id}")
+    public ResponseEntity<Object> updatePet(@PathVariable(value = "id") long id, @RequestBody @Valid PetRecordDto petRecordDto) {
+
+        Optional<Pet> pet0 = petService.findById(id);
+        if (pet0.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pet not found");
+        }
+
+        var pet = pet0.get();
+        BeanUtils.copyProperties(petRecordDto, pet);
+        petService.salvarPet(pet);
+        return ResponseEntity.status(HttpStatus.OK).body(pet);
+
+
+    }
+
+    @DeleteMapping("/pets/{id}")
+    @Transactional
+    public ResponseEntity<Object> deletePet(@PathVariable(value = "id") long id) {
+
+        Optional<Pet> pet0 = petService.findById(id);
+        if (pet0.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pet not found");
+        }
+        petService.deletarPet(id);
+        return ResponseEntity.status(HttpStatus.OK).body("pet deleted sucessfully");
+
+
+    }
+
+    @GetMapping("/pets/{id}")
+    public ResponseEntity<Object> petBuscaId(@PathVariable(value = "id") long id) {
+        Optional<Pet> pet0 = petService.findById(id);
+
+        if (pet0.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id not found");
+        }
+        Pet pet = pet0.get();
+        return ResponseEntity.status(HttpStatus.OK).body(pet);
+    }
 }

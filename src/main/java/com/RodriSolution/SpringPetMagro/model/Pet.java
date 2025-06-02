@@ -19,8 +19,7 @@ public class Pet {
     private long id;
     @Enumerated(EnumType.STRING)
     private Tipo tipo;
-    private String firstName;
-    private String lastName;
+    private String petNome;
     @Enumerated(EnumType.STRING)
     private Sexo sexo;
     @Embedded
