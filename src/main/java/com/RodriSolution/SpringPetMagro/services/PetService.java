@@ -5,6 +5,7 @@ import com.RodriSolution.SpringPetMagro.model.Tipo;
 import com.RodriSolution.SpringPetMagro.repositories.PetRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,8 +25,19 @@ public class PetService {
 
 
 
-    public List<Pet> buscarPetsPorFiltros(String petNome, String raca, Double idade) {
-        return petRepository.findByPetNomeAndRacaAndIdade(petNome, raca, idade);
+    public List<Pet> listarPetNome( String petNome) {
+        return petRepository.findByPetNomeIgnoreCase(petNome.trim());
+
+    }
+
+    public List<Pet> listarPetraca( String raca) {
+        return petRepository.findByRacaIgnoreCase(raca);
+
+    }
+
+    public List<Pet> listarPetidade( Double idade) {
+        return petRepository.findByIdade(idade);
+
     }
 
     public Optional<Pet> findById(long id) {

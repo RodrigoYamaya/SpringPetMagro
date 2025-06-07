@@ -2,6 +2,7 @@ package com.RodriSolution.SpringPetMagro.controllers;
 
 import com.RodriSolution.SpringPetMagro.dtos.PetRecordDto;
 import com.RodriSolution.SpringPetMagro.model.Pet;
+import com.RodriSolution.SpringPetMagro.repositories.PetRepository;
 import com.RodriSolution.SpringPetMagro.services.PetService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +22,8 @@ public class PetController {
 
     @Autowired
     PetService petService;
+    @Autowired
+    private PetRepository petRepository;
 
     @PostMapping("/pets")
     @Transactional
@@ -37,6 +41,27 @@ public class PetController {
         return ResponseEntity.status(HttpStatus.OK).body(pets);
     }
 
+    @GetMapping("/pets/busca")
+    public ResponseEntity<List<Pet>> getPetFiltro(
+            @RequestParam Optional<String> petNome,
+            @RequestParam Optional<Double> idade,
+            @RequestParam Optional<String> raca) {
+
+        List<Pet> pets;
+
+        if (petNome.isPresent()) {
+            pets = petService.listarPetNome(petNome.get());
+        } else if (idade.isPresent()) {
+            pets = petService.listarPetidade(idade.get());
+        } else if (raca.isPresent()) {
+            pets = petService.listarPetraca(raca.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Collections.emptyList());
+        }
+
+        return ResponseEntity.ok(pets);
+    }
 
 
     @PutMapping("/pets/{id}")
