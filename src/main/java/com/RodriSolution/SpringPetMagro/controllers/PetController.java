@@ -22,8 +22,8 @@ public class PetController {
 
     @Autowired
     PetService petService;
-    @Autowired
-    private PetRepository petRepository;
+
+
 
     @PostMapping("/pets")
     @Transactional
@@ -43,24 +43,19 @@ public class PetController {
 
     @GetMapping("/pets/busca")
     public ResponseEntity<List<Pet>> getPetFiltro(
-            @RequestParam Optional<String> petNome,
-            @RequestParam Optional<Double> idade,
-            @RequestParam Optional<String> raca) {
+            @RequestParam(required = false) Long id,
+            @RequestParam(required = false) String petNome,
+            @RequestParam(required = false) String lastnamePet,
+            @RequestParam(required = false) Double idade,
+            @RequestParam(required = false) String raca,
+            @RequestParam(required = false) String endereco,
+            @RequestParam(required = false) String tipo,
+            @RequestParam(required = false) String sexo,
+            @RequestParam(required = false) Double peso
+            ){
 
-        List<Pet> pets;
-
-        if (petNome.isPresent()) {
-            pets = petService.listarPetNome(petNome.get());
-        } else if (idade.isPresent()) {
-            pets = petService.listarPetidade(idade.get());
-        } else if (raca.isPresent()) {
-            pets = petService.listarPetraca(raca.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(Collections.emptyList());
-        }
-
-        return ResponseEntity.ok(pets);
+        List<Pet> petsFiltrados = petService.buscaPorFiltro(id, petNome,lastnamePet, tipo, sexo, endereco,idade,peso,raca);
+        return ResponseEntity.ok(petsFiltrados);
     }
 
 

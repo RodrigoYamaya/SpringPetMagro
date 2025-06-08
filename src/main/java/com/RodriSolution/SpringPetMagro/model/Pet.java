@@ -20,6 +20,7 @@ public class Pet {
     @Enumerated(EnumType.STRING)
     private Tipo tipo;
     private String petNome;
+    private String lastnamePet;
     @Enumerated(EnumType.STRING)
     private Sexo sexo;
     @Embedded

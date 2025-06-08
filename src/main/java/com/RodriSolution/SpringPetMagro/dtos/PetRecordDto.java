@@ -14,6 +14,7 @@ import java.time.LocalDate;
 public record PetRecordDto(
                            @NotNull Tipo tipo,
                            @NotBlank String petNome,
+                           @NotBlank String lastnamePet,
                            @NotNull Sexo sexo,
                            @NotNull Endereco endereco,
                            @Positive Double idade,
