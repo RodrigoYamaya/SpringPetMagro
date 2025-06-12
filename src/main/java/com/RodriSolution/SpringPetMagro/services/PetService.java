@@ -1,5 +1,6 @@
 package com.RodriSolution.SpringPetMagro.services;
 
+import com.RodriSolution.SpringPetMagro.exceptions.RecursoNaoEncontrado;
 import com.RodriSolution.SpringPetMagro.model.Pet;
 import com.RodriSolution.SpringPetMagro.model.Sexo;
 import com.RodriSolution.SpringPetMagro.model.Tipo;
@@ -47,13 +48,17 @@ public class PetService {
 
     }
 
-    public Optional<Pet> findById(long id) {
-        return petRepository.findById(id);
+    public Pet findById(long id) {
+        return petRepository.findById(id)
+                .orElseThrow(() -> new RecursoNaoEncontrado("Pet com o ID " + id + " não encontrado"));
 
 
     }
 
     public void deletarPet(long id) {
+        if(!petRepository.existsById(id)) {
+            throw new RecursoNaoEncontrado("Pet com o ID " + id + " não encontrado");
+        }
         petRepository.deleteById(id);
     }
 

@@ -1,10 +1,10 @@
 package com.RodriSolution.SpringPetMagro.controllers;
 
 import com.RodriSolution.SpringPetMagro.dtos.PetRecordDto;
+import com.RodriSolution.SpringPetMagro.exceptions.RecursoNaoEncontrado;
 import com.RodriSolution.SpringPetMagro.model.Pet;
 import com.RodriSolution.SpringPetMagro.model.Sexo;
 import com.RodriSolution.SpringPetMagro.model.Tipo;
-import com.RodriSolution.SpringPetMagro.repositories.PetRepository;
 import com.RodriSolution.SpringPetMagro.services.PetService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -64,41 +63,43 @@ public class PetController {
     @PutMapping("/pets/{id}")
     public ResponseEntity<Object> updatePet(@PathVariable(value = "id") long id, @RequestBody @Valid PetRecordDto petRecordDto) {
 
-        Optional<Pet> pet0 = petService.findById(id);
-        if (pet0.isEmpty()) {
+        try {
+            Pet pet0 = petService.findById(id);
+            var pet = pet0;
+            BeanUtils.copyProperties(petRecordDto, pet);
+            petService.salvarPet(pet);
+            return ResponseEntity.status(HttpStatus.OK).body(pet);
+        } catch (RecursoNaoEncontrado e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pet not found");
+
         }
-
-        var pet = pet0.get();
-        BeanUtils.copyProperties(petRecordDto, pet);
-        petService.salvarPet(pet);
-        return ResponseEntity.status(HttpStatus.OK).body(pet);
-
 
     }
 
     @DeleteMapping("/pets/{id}")
     @Transactional
-    public ResponseEntity<Object> deletePet(@PathVariable(value = "id") long id) {
-
-        Optional<Pet> pet0 = petService.findById(id);
-        if (pet0.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pet not found");
+    public ResponseEntity<?> deletePet(@PathVariable(value = "id") long id) {
+        try {
+            petService.deletarPet(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Pet com o ID " + id + " deletado com sucesso.");
         }
-        petService.deletarPet(id);
-        return ResponseEntity.status(HttpStatus.OK).body("pet deleted sucessfully");
+        catch (RecursoNaoEncontrado e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pet com o ID " + id + " não encontrado.");
 
-
+        }
     }
 
     @GetMapping("/pets/{id}")
-    public ResponseEntity<Object> petBuscaId(@PathVariable(value = "id") long id) {
-        Optional<Pet> pet0 = petService.findById(id);
-
-        if (pet0.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id not found");
+    public ResponseEntity<?> petBuscaId(@PathVariable(value = "id") long id) {
+        try {
+            Pet pet = petService.findById(id);
+            return ResponseEntity.ok(pet);
         }
-        Pet pet = pet0.get();
-        return ResponseEntity.status(HttpStatus.OK).body(pet);
+        catch (RecursoNaoEncontrado e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+
+
+        }
+
     }
 }
