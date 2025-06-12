@@ -2,6 +2,8 @@ package com.RodriSolution.SpringPetMagro.controllers;
 
 import com.RodriSolution.SpringPetMagro.dtos.PetRecordDto;
 import com.RodriSolution.SpringPetMagro.model.Pet;
+import com.RodriSolution.SpringPetMagro.model.Sexo;
+import com.RodriSolution.SpringPetMagro.model.Tipo;
 import com.RodriSolution.SpringPetMagro.repositories.PetRepository;
 import com.RodriSolution.SpringPetMagro.services.PetService;
 import jakarta.validation.Valid;
@@ -12,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -49,8 +51,8 @@ public class PetController {
             @RequestParam(required = false) Double idade,
             @RequestParam(required = false) String raca,
             @RequestParam(required = false) String endereco,
-            @RequestParam(required = false) String tipo,
-            @RequestParam(required = false) String sexo,
+            @RequestParam(required = false) Tipo tipo,
+            @RequestParam(required = false) Sexo sexo,
             @RequestParam(required = false) Double peso
             ){
 
