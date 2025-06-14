@@ -7,11 +7,8 @@ import com.RodriSolution.SpringPetMagro.model.Tipo;
 import com.RodriSolution.SpringPetMagro.repositories.PetRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
