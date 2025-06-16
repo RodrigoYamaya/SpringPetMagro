@@ -1,12 +1,8 @@
 package com.RodriSolution.SpringPetMagro.domain;
 
 import com.RodriSolution.SpringPetMagro.dtos.PetRecordDto;
-import com.RodriSolution.SpringPetMagro.exceptions.IdadeInvalidaException;
-import com.RodriSolution.SpringPetMagro.exceptions.NomeInvalidoException;
-import com.RodriSolution.SpringPetMagro.exceptions.PesoInvalidaException;
-import com.RodriSolution.SpringPetMagro.exceptions.RacaInvalidaException;
+import com.RodriSolution.SpringPetMagro.exceptions.*;
 import com.RodriSolution.SpringPetMagro.model.Pet;
-import jdk.jfr.Category;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -41,7 +37,7 @@ public class PetValidator {
         }
 
         String raca = pet.getRaca();
-        if (raca == null || raca.isBlank()) {
+        if (raca == null || raca.isBlank())  {
             raca = NAO_INFORMADO;
         }
         if (!raca.matches("^[a-zA-Z ]+$") && !raca.equals(NAO_INFORMADO)) {
@@ -50,6 +46,10 @@ public class PetValidator {
 
         if (pet.getEndereco() != null) {
             String numero = pet.getEndereco().getNumero();
+
+            if  (numero != null && !numero.isBlank() && !numero.matches("^[0-9]+$")) {
+                throw new EnderecoInvalidoException("endereço invalido: use apenas letras e espaços");
+            }
             if (numero == null || numero.isBlank()) {
                 pet.getEndereco().setNumero(NAO_INFORMADO);
             }
