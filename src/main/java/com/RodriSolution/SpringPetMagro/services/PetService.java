@@ -1,11 +1,14 @@
 package com.RodriSolution.SpringPetMagro.services;
 
+import com.RodriSolution.SpringPetMagro.domain.PetValidator;
+import com.RodriSolution.SpringPetMagro.dtos.PetRecordDto;
 import com.RodriSolution.SpringPetMagro.exceptions.RecursoNaoEncontrado;
 import com.RodriSolution.SpringPetMagro.model.Pet;
 import com.RodriSolution.SpringPetMagro.model.Sexo;
 import com.RodriSolution.SpringPetMagro.model.Tipo;
 import com.RodriSolution.SpringPetMagro.repositories.PetRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +18,10 @@ import java.util.stream.Collectors;
 @Service
 public class PetService {
     private final PetRepository petRepository;
+    private final PetValidator petValidator;
 
     public void salvarPet(Pet pet) {
+        petValidator.validarDados(pet);
         petRepository.save(pet);
     }
 
