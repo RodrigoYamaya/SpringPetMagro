@@ -30,5 +30,9 @@ public class Pet {
     private String raca;
     private LocalDate data;
 
+    @ManyToOne
+    @JoinColumn(name = "tutor_id")
+    private Tutor tutor;
+
 
 }
