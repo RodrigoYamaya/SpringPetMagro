@@ -1,9 +1,14 @@
 package com.RodriSolution.SpringPetMagro.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "tb_tutores")
 public class Tutor {
@@ -18,7 +23,8 @@ public class Tutor {
     @Column(nullable = false)
     private String celular;
 
-    @OneToMany(mappedBy = "tutor", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Pet> pets;
 
 
@@ -31,37 +37,6 @@ public class Tutor {
         this.celular = celular;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getCelular() {
-        return celular;
-    }
-
-    public void setCelular(String celular) {
-        this.celular = celular;
-    }
 
     @Override
     public String toString() {

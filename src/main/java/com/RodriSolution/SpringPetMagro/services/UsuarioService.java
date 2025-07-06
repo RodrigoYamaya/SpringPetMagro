@@ -1,5 +1,7 @@
 package com.RodriSolution.SpringPetMagro.services;
 
+import com.RodriSolution.SpringPetMagro.dtos.UsuarioDto;
+import com.RodriSolution.SpringPetMagro.enums.RoleEnum;
 import com.RodriSolution.SpringPetMagro.model.Usuario;
 import com.RodriSolution.SpringPetMagro.repositories.UsuarioRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,9 +21,9 @@ public class UsuarioService {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-    public Usuario registrarUsuario(String username, String password) {
-        String senhaCriptografada = passwordEncoder.encode(password);
-        Usuario usuario = new Usuario(username, senhaCriptografada);
+    public Usuario registrarUsuario(UsuarioDto dto) {
+        String senhaCriptografada = passwordEncoder.encode(dto.password());
+        Usuario usuario = new Usuario(dto.username(),senhaCriptografada, dto.role());
         return usuarioRepository.save(usuario);
     }
 

@@ -1,12 +1,13 @@
 package com.RodriSolution.SpringPetMagro.model;
 
+import com.RodriSolution.SpringPetMagro.enums.Sexo;
+import com.RodriSolution.SpringPetMagro.enums.Tipo;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
-@EqualsAndHashCode
+
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,7 +32,7 @@ public class Pet {
     private LocalDate data;
 
     @ManyToOne
-    @JoinColumn(name = "tutor_id")
+    @JoinColumn(name = "tutor_id",nullable = false)
     private Tutor tutor;
 
 

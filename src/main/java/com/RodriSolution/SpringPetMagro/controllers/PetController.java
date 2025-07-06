@@ -1,12 +1,14 @@
 package com.RodriSolution.SpringPetMagro.controllers;
 
-import com.RodriSolution.SpringPetMagro.dtos.PetRecordDto;
+
+import com.RodriSolution.SpringPetMagro.dtos.PetResponsedDto;
+import com.RodriSolution.SpringPetMagro.dtos.PetResquestDto;
 import com.RodriSolution.SpringPetMagro.model.Pet;
-import com.RodriSolution.SpringPetMagro.model.Sexo;
-import com.RodriSolution.SpringPetMagro.model.Tipo;
+import com.RodriSolution.SpringPetMagro.enums.Sexo;
+import com.RodriSolution.SpringPetMagro.enums.Tipo;
 import com.RodriSolution.SpringPetMagro.services.PetService;
+import com.RodriSolution.SpringPetMagro.utils.PetMapper;
 import jakarta.validation.Valid;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +23,11 @@ public class PetController {
     @Autowired
     PetService petService;
 
-    @PostMapping("/pets")
     @Transactional
-    public ResponseEntity<Pet> savePet(@RequestBody @Valid PetRecordDto petRecordDto) {
-        var pet = new Pet();
-        BeanUtils.copyProperties(petRecordDto, pet);
-        petService.salvarPet(pet);
-        return ResponseEntity.status(HttpStatus.CREATED).body(pet);
+    @PostMapping("/pets")
+    public ResponseEntity<PetResponsedDto> savePet(@RequestBody @Valid PetResquestDto dto) {
+      PetResponsedDto petSalvo = petService.savePet(dto);
+      return ResponseEntity.status(HttpStatus.CREATED).body(petSalvo);
     }
 
     @GetMapping("/pets/lista")
@@ -51,19 +51,16 @@ public class PetController {
         List<Pet> petsFiltrados = petService.buscaPorFiltro(id, petNome, lastnamePet, tipo, sexo, endereco, idade, peso, raca);
         return ResponseEntity.ok(petsFiltrados);
     }
-
-    @PutMapping("/pets/{id}")
-    public ResponseEntity<?> updatePet(@PathVariable(value = "id") long id,
-                                       @RequestBody @Valid PetRecordDto petRecordDto) {
-        Pet pet0 = petService.findById(id);
-        var pet = pet0;
-        BeanUtils.copyProperties(petRecordDto, pet);
-        petService.salvarPet(pet);
-        return ResponseEntity.status(HttpStatus.OK).body(pet);
-    }
-
-    @DeleteMapping("/pets/{id}")
     @Transactional
+    @PutMapping("/pets/{id}")
+    public ResponseEntity<PetResponsedDto> updatePet(@PathVariable(value = "id") long id,
+                                       @RequestBody @Valid PetResquestDto dto) {
+
+        PetResponsedDto petUpdate = petService.updatePet(id,dto);
+        return ResponseEntity.status(HttpStatus.OK).body(petUpdate);
+    }
+    @Transactional
+    @DeleteMapping("/pets/{id}")
     public ResponseEntity<?> deletePet(@PathVariable(value = "id") long id) {
         petService.deletarPet(id);
         return ResponseEntity.status(HttpStatus.OK).body("Pet com o ID " + id + " deletado com sucesso.");
@@ -72,6 +69,6 @@ public class PetController {
     @GetMapping("/pets/{id}")
     public ResponseEntity<?> petBuscaId(@PathVariable(value = "id") long id) {
         Pet pet = petService.findById(id);
-        return ResponseEntity.ok(pet);
+        return ResponseEntity.ok(PetMapper.toDto(pet));
     }
 }

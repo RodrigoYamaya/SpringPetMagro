@@ -1,17 +1,16 @@
 package com.RodriSolution.SpringPetMagro.dtos;
 
+import com.RodriSolution.SpringPetMagro.enums.Sexo;
+import com.RodriSolution.SpringPetMagro.enums.Tipo;
 import com.RodriSolution.SpringPetMagro.model.Endereco;
-import com.RodriSolution.SpringPetMagro.model.Sexo;
-import com.RodriSolution.SpringPetMagro.model.Tipo;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 
-
 import java.time.LocalDate;
 
-public record PetRecordDto(
+public record PetResquestDto(
                            @NotNull Tipo tipo,
                            @NotBlank String petNome,
                            @NotBlank String lastnamePet ,
@@ -20,5 +19,6 @@ public record PetRecordDto(
                            @Positive Double idade,
                            @Positive Double peso,
                            @NotBlank String raca,
+                           @NotNull Long tutor,
                            @PastOrPresent LocalDate data) {
 }

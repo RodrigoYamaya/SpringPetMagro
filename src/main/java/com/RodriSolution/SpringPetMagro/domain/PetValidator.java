@@ -1,6 +1,5 @@
 package com.RodriSolution.SpringPetMagro.domain;
 
-import com.RodriSolution.SpringPetMagro.dtos.PetRecordDto;
 import com.RodriSolution.SpringPetMagro.exceptions.*;
 import com.RodriSolution.SpringPetMagro.model.Pet;
 import org.springframework.stereotype.Component;
