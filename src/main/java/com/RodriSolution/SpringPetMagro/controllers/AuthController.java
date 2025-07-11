@@ -1,12 +1,16 @@
 package com.RodriSolution.SpringPetMagro.controllers;
 
-import com.RodriSolution.SpringPetMagro.dtos.UsuarioDto;
-import com.RodriSolution.SpringPetMagro.dtos.loginDtoRequest;
-import com.RodriSolution.SpringPetMagro.model.Usuario;
+import com.RodriSolution.SpringPetMagro.model.dtos.UsuarioDto;
+import com.RodriSolution.SpringPetMagro.model.dtos.loginDtoRequest;
+import com.RodriSolution.SpringPetMagro.model.entities.Usuario;
 import com.RodriSolution.SpringPetMagro.security.JwtUtil;
 import com.RodriSolution.SpringPetMagro.services.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,12 +25,12 @@ import java.util.Optional;
 public class AuthController {
 
     private final UsuarioService usuarioService;
-    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
 
 
-    public AuthController(UsuarioService usuarioService, PasswordEncoder passwordEncoder) {
+    public AuthController(UsuarioService usuarioService, AuthenticationManager authenticationManager) {
         this.usuarioService = usuarioService;
-        this.passwordEncoder = passwordEncoder;
+        this.authenticationManager = authenticationManager;
     }
 
 
@@ -38,14 +42,14 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody loginDtoRequest request) {
-        Optional<Usuario> usuario = usuarioService.buscaPorUsername(request.username());
-        if (usuario.isPresent() && passwordEncoder.matches((request.password()), usuario.get().getPassword())) {
-            String token = JwtUtil.generateToken(usuario.get().getUsername());
+        try {
+            Authentication authenticationRequest =
+                    new UsernamePasswordAuthenticationToken(request.username(), request.password());
+            Authentication authentication = authenticationManager.authenticate(authenticationRequest);
+            String token = JwtUtil.generateToken(authentication.getName());
             return ResponseEntity.ok(Map.of("token", token));
-
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(401).body("Credenciais inválidas");
         }
-        return ResponseEntity.status(401).body("Credencias inválidas");
-
-
     }
 }

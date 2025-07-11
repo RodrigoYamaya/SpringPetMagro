@@ -1,8 +1,8 @@
 package com.RodriSolution.SpringPetMagro.controllers;
 
-import com.RodriSolution.SpringPetMagro.dtos.TutorRequestDto;
-import com.RodriSolution.SpringPetMagro.dtos.TutorResponseDto;
-import com.RodriSolution.SpringPetMagro.model.Tutor;
+import com.RodriSolution.SpringPetMagro.model.dtos.TutorRequestDto;
+import com.RodriSolution.SpringPetMagro.model.dtos.TutorResponseDto;
+import com.RodriSolution.SpringPetMagro.model.entities.Tutor;
 import com.RodriSolution.SpringPetMagro.services.TutorService;
 import com.RodriSolution.SpringPetMagro.utils.TutorMapper;
 import jakarta.validation.Valid;

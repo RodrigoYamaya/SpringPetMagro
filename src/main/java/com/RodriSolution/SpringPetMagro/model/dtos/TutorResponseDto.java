@@ -1,4 +1,4 @@
-package com.RodriSolution.SpringPetMagro.dtos;
+package com.RodriSolution.SpringPetMagro.model.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

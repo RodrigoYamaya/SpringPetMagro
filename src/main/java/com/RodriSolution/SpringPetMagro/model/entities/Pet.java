@@ -1,7 +1,7 @@
-package com.RodriSolution.SpringPetMagro.model;
+package com.RodriSolution.SpringPetMagro.model.entities;
 
-import com.RodriSolution.SpringPetMagro.enums.Sexo;
-import com.RodriSolution.SpringPetMagro.enums.Tipo;
+import com.RodriSolution.SpringPetMagro.model.enums.Sexo;
+import com.RodriSolution.SpringPetMagro.model.enums.Tipo;
 import jakarta.persistence.*;
 import lombok.*;
 

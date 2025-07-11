@@ -1,11 +1,11 @@
 package com.RodriSolution.SpringPetMagro.services;
 
 
-import com.RodriSolution.SpringPetMagro.dtos.TutorRequestDto;
-import com.RodriSolution.SpringPetMagro.dtos.TutorResponseDto;
+import com.RodriSolution.SpringPetMagro.model.dtos.TutorRequestDto;
+import com.RodriSolution.SpringPetMagro.model.dtos.TutorResponseDto;
 import com.RodriSolution.SpringPetMagro.exceptions.RecursoDuplicadoException;
 import com.RodriSolution.SpringPetMagro.exceptions.RecursoNaoEncontrado;
-import com.RodriSolution.SpringPetMagro.model.Tutor;
+import com.RodriSolution.SpringPetMagro.model.entities.Tutor;
 import com.RodriSolution.SpringPetMagro.repositories.TutorRepository;
 import com.RodriSolution.SpringPetMagro.utils.TutorMapper;
 import org.springframework.beans.factory.annotation.Autowired;

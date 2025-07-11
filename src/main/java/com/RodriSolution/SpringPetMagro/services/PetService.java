@@ -1,13 +1,13 @@
 package com.RodriSolution.SpringPetMagro.services;
 
 import com.RodriSolution.SpringPetMagro.domain.PetValidator;
-import com.RodriSolution.SpringPetMagro.dtos.PetResponsedDto;
-import com.RodriSolution.SpringPetMagro.dtos.PetResquestDto;
+import com.RodriSolution.SpringPetMagro.model.dtos.PetResponsedDto;
+import com.RodriSolution.SpringPetMagro.model.dtos.PetResquestDto;
 import com.RodriSolution.SpringPetMagro.exceptions.RecursoNaoEncontrado;
-import com.RodriSolution.SpringPetMagro.model.Pet;
-import com.RodriSolution.SpringPetMagro.enums.Sexo;
-import com.RodriSolution.SpringPetMagro.enums.Tipo;
-import com.RodriSolution.SpringPetMagro.model.Tutor;
+import com.RodriSolution.SpringPetMagro.model.entities.Pet;
+import com.RodriSolution.SpringPetMagro.model.enums.Sexo;
+import com.RodriSolution.SpringPetMagro.model.enums.Tipo;
+import com.RodriSolution.SpringPetMagro.model.entities.Tutor;
 import com.RodriSolution.SpringPetMagro.repositories.PetRepository;
 import com.RodriSolution.SpringPetMagro.repositories.TutorRepository;
 import com.RodriSolution.SpringPetMagro.utils.PetMapper;

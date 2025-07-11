@@ -1,6 +1,6 @@
 package com.RodriSolution.SpringPetMagro.services;
 
-import com.RodriSolution.SpringPetMagro.model.Usuario;
+import com.RodriSolution.SpringPetMagro.model.entities.Usuario;
 import com.RodriSolution.SpringPetMagro.repositories.UsuarioRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

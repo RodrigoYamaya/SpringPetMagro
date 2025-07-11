@@ -1,7 +1,7 @@
 package com.RodriSolution.SpringPetMagro.domain;
 
 import com.RodriSolution.SpringPetMagro.exceptions.*;
-import com.RodriSolution.SpringPetMagro.model.Pet;
+import com.RodriSolution.SpringPetMagro.model.entities.Pet;
 import org.springframework.stereotype.Component;
 
 @Component

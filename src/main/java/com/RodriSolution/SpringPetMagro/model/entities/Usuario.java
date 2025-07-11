@@ -1,6 +1,6 @@
-package com.RodriSolution.SpringPetMagro.model;
+package com.RodriSolution.SpringPetMagro.model.entities;
 
-import com.RodriSolution.SpringPetMagro.enums.RoleEnum;
+import com.RodriSolution.SpringPetMagro.model.enums.RoleEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;

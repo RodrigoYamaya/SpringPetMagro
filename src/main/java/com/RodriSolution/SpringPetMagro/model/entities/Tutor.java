@@ -1,4 +1,4 @@
-package com.RodriSolution.SpringPetMagro.model;
+package com.RodriSolution.SpringPetMagro.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

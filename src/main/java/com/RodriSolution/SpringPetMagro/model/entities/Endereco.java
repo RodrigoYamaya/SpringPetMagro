@@ -1,4 +1,4 @@
-package com.RodriSolution.SpringPetMagro.model;
+package com.RodriSolution.SpringPetMagro.model.entities;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

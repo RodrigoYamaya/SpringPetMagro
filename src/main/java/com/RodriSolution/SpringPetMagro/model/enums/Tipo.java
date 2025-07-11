@@ -1,4 +1,4 @@
-package com.RodriSolution.SpringPetMagro.enums;
+package com.RodriSolution.SpringPetMagro.model.enums;
 
 public enum Tipo {
     GATO,

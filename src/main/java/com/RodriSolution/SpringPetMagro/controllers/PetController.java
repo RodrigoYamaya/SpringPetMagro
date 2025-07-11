@@ -1,11 +1,11 @@
 package com.RodriSolution.SpringPetMagro.controllers;
 
 
-import com.RodriSolution.SpringPetMagro.dtos.PetResponsedDto;
-import com.RodriSolution.SpringPetMagro.dtos.PetResquestDto;
-import com.RodriSolution.SpringPetMagro.model.Pet;
-import com.RodriSolution.SpringPetMagro.enums.Sexo;
-import com.RodriSolution.SpringPetMagro.enums.Tipo;
+import com.RodriSolution.SpringPetMagro.model.dtos.PetResponsedDto;
+import com.RodriSolution.SpringPetMagro.model.dtos.PetResquestDto;
+import com.RodriSolution.SpringPetMagro.model.entities.Pet;
+import com.RodriSolution.SpringPetMagro.model.enums.Sexo;
+import com.RodriSolution.SpringPetMagro.model.enums.Tipo;
 import com.RodriSolution.SpringPetMagro.services.PetService;
 import com.RodriSolution.SpringPetMagro.utils.PetMapper;
 import jakarta.validation.Valid;

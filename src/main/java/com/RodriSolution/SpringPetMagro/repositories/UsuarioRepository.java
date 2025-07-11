@@ -1,6 +1,6 @@
 package com.RodriSolution.SpringPetMagro.repositories;
 
-import com.RodriSolution.SpringPetMagro.model.Usuario;
+import com.RodriSolution.SpringPetMagro.model.entities.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
