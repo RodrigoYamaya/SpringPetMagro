@@ -35,5 +35,9 @@ public class Pet {
     @JoinColumn(name = "tutor_id",nullable = false)
     private Tutor tutor;
 
-
+    //teste unitario(apagar depois)
+    public Pet(String petNome, Tutor tutor) {
+        this.petNome = petNome;
+        this.tutor = tutor;
+    }
 }

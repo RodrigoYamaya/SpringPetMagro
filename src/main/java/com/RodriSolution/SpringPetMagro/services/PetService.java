@@ -29,7 +29,6 @@ public class PetService {
     @Autowired
     private final TutorRepository tutorRepository;
 
-
     @Transactional
     public PetResponsedDto savePet(PetResquestDto petDto) {
         Tutor tutor = tutorRepository.findById(petDto.tutor())
@@ -99,6 +98,4 @@ public class PetService {
         Pet petSave = petRepository.save(pet);
         return PetMapper.toDto(petSave);
     }
-
-
 }
